@@ -64,7 +64,7 @@ const page = async () => {
               <InterviewCard {...interview} key={interview.id} />
             ))
           ) : (
-            <p>YThere are no new interviews available</p>
+            <p>There are no new interviews available</p>
           )}
         </div>
       </section>

@@ -35,16 +35,23 @@ const Agent = ({
   const handleGenerateFeedback = async (messages: SavedMessage[]) => {
     console.log("Generate feedback here.");
 
-    const { success, feedbackId: id } = await createFeedback({
-      interviewId: interviewId!,
-      userId: userId!,
-      transcript: messages,
+    const response = await fetch("/api/feedback", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        interviewId: interviewId!,
+        userId: userId!,
+        transcript: messages,
+      }),
     });
 
-    if (success && id) {
+    if (response.ok) {
+      const { feedbackId } = await response.json();
       router.push(`/interview/${interviewId}/feedback`);
     } else {
-      console.log("Error saving feedback");
+      console.error("Error saving feedback");
       router.push("/");
     }
   };
