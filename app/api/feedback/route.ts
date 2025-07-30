@@ -2,8 +2,13 @@ import { createFeedback } from "@/lib/actions/general.action";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const { interviewId, userId, transcript } = await request.json();
-  const result = await createFeedback({ interviewId, userId, transcript });
+  const { interviewId, userId, transcript, feedbackId } = await request.json();
+  const result = await createFeedback({
+    interviewId,
+    userId,
+    transcript,
+    feedbackId,
+  });
 
   if (!result.success) {
     return NextResponse.json(
